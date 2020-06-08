@@ -1,6 +1,6 @@
 /** @module QuestionCard */
 import classNames from 'classnames';
-import React, {FC, Fragment, ReactNode} from 'react';
+import React, {FC, FormEvent, Fragment, ReactNode} from 'react';
 import Button from '~components/atoms/Button/Button';
 import Cabinet from '~components/molecules/Cabinet/Cabinet.jsx';
 import '~components/molecules/CardShell/Cards.scss';
@@ -22,7 +22,7 @@ export type QuestionCardProps = {
   /** Handler to cancel the changes. */
   cancelChanges: () => void;
   /** HTML element that should appear within the card when not collapsed */
-  children: ReactNode;
+  children?: ReactNode;
   /** Applies additional class names to the button. */
   className?: string;
   /** Whether making changes should clear out any changes made in steps after this. */
@@ -57,9 +57,16 @@ export type QuestionCardProps = {
     label: string;
   };
   /** The handler to fire when a change happens. */
-  onChange?: React.ChangeEventHandler;
+  onChange?:
+    | React.ChangeEventHandler
+    | ((fieldName: string, newValue: string) => void);
   /** The handler to fire when the Submit button is clicked. */
-  onSubmit: React.FormEventHandler;
+  onSubmit:
+    | React.FormEventHandler
+    | ((
+        e: FormEvent,
+        outputDefaults: Record<string, string | boolean>,
+      ) => void);
   /** Output defaults to fallback to on continue if an output is empty. The key should be the output name and the value should be the default value */
   outputDefaults?: {};
   /** Shorter title to be used with the card summary. */

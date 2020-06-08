@@ -56,16 +56,13 @@ export const getSelectedAnswerLabel = (
   }
 };
 
-export type RadioButtonCardProps = Omit<
-  QuestionCardProps,
-  'summary' | 'onChange'
-> & {
+export type RadioButtonCardProps = Omit<QuestionCardProps, 'summary'> & {
   /** Values to pass into radio button */
   config: Omit<RadioButtonsProps, 'onChange'>;
   /** The card answer(s) to show in the collapsed summary. If not provided, will use the label of the seleted value */
   answers?: string[];
   /** The handler to fire when a change happens. */
-  onChange: HandleRadioButtonChange;
+  onChange: (fieldName: string, newValue: string) => void;
   /** Handler called to edit the card, only necessary for McGonagall. */
   editCard: React.MouseEventHandler;
 };

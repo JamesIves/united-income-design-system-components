@@ -59,7 +59,7 @@ type CheckboxCardProps = Omit<QuestionCardProps, 'summary'> & {
   /** Handler called to edit the card, only necessary for McGonagall. */
   editCard: React.MouseEventHandler;
   /** The handler to fire when a change happens. */
-  onChange: typeof Checkboxes.propTypes.onChange;
+  onChange: (fieldName: string, newValue: string) => void;
 };
 
 /**

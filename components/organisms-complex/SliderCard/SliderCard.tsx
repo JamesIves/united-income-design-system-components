@@ -32,7 +32,7 @@ type SliderCardProps = Omit<QuestionCardProps, 'summary' | 'children'> & {
   /** Handler called to edit the card, only necessary for McGonagall. */
   editCard: React.MouseEventHandler;
   /** The handler to fire when a change happens. */
-  onChange: () => void;
+  onChange: (fieldName: string, newValue: string) => void;
 };
 
 /**
