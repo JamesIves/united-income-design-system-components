@@ -379,11 +379,17 @@ stories.addParameters({
   },
 });
 
-function mockPush(arg0: {} | string) {
+const mockPush = (arg0: {} | string): void => {
   if (typeof arg0 === 'string') {
     return;
   } else {
-    const push = ({pathname, query}: {pathname?: string; query?: any}) => {
+    const push = ({
+      pathname,
+      query,
+    }: {
+      pathname?: string;
+      query?: any;
+    }): void => {
       top.history.pushState(
         {},
         '',
@@ -394,7 +400,7 @@ function mockPush(arg0: {} | string) {
     };
     push(arg0);
   }
-}
+};
 
 stories.add('default', () => {
   return (

@@ -21,7 +21,7 @@ const CompletionScreen = ({
   actions,
   feature,
   className,
-}: CompletionScreenProps) => {
+}: CompletionScreenProps): JSX.Element => {
   const containerClass = classNames(
     {
       'uic--mcg-completion-screen': true,
