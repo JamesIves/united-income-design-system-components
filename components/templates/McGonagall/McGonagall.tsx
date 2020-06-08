@@ -367,30 +367,31 @@ class McGonagall<TContext = DefaultContext> extends Component<
       updatedCurrState = newState;
     }
 
-    const updatedData: {
-      currXState: State<TContext, McGonagallEvent, StateSchema>;
-    } & TContext & {cardHistory: Step[]} = {
-      currXState: updatedCurrState,
-      ...updatedCurrState.context,
-      ...updatedPayloadValues,
-      cardHistory: this.state.cardHistory,
-    };
-
-    // If not returning to latest, need to update the card history
-    if (!shouldReturnToLatest) {
-      updatedData.cardHistory = [
-        this.getMatchingStep(this.props.steps, newState),
-        ...prevHistory,
-      ];
-    }
-
     const stepToNavigateTo =
       this.activeCard !== this.state.currXState.value && !clearFuture
         ? this.state.currXState.value
         : newState.value;
 
     this.navigateToStep(stepToNavigateTo as string);
-    this.setState(updatedData);
+
+    const updatedData = {
+      currXState: updatedCurrState,
+      ...updatedCurrState.context,
+      ...updatedPayloadValues,
+    };
+
+    // If not returning to latest, need to update the card history
+    if (!shouldReturnToLatest) {
+      this.setState({
+        ...updatedData,
+        cardHistory: [
+          this.getMatchingStep(this.props.steps, newState),
+          ...prevHistory,
+        ],
+      });
+    } else {
+      this.setState(updatedData);
+    }
   }
 
   /**
