@@ -41,12 +41,10 @@ type MessageCardProps = {
   /** Shows a loading indicator on the button for actions after the button is clicked. */
   loading?: boolean;
   /** The handler to fire when the Submit button is clicked. */
-  onSubmit:
-    | React.FormEventHandler
-    | ((
-        e: FormEvent,
-        outputDefaults?: Record<string, string | boolean>,
-      ) => Promise<void>);
+  onSubmit: (
+    e: FormEvent,
+    outputDefaults?: Record<string, string | boolean>,
+  ) => Promise<void>;
   /** The index of this card in the flow, used for animation purposes */
   stepIndex?: number;
   /** The title of the card. */
