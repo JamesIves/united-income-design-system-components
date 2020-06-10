@@ -29,7 +29,7 @@ export type McGonagallCardProps = {
   clearFuture?: boolean;
   /** The card description. If given a raw string, the string is wrapped with a p tag. */
   description: ReactNode;
-  /** TODO: this should be here */
+  /** Default values for a card */
   defaultValues?: {}[];
   /** Handler called to edit the card, only necessary for McGonagall. */
   editCard: React.MouseEventHandler;
