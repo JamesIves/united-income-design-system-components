@@ -4,6 +4,7 @@ import * as queryString from 'query-string';
 import React, {Component, FormEvent, MouseEvent, ReactNode} from 'react';
 import {
   assign,
+  AssignAction,
   DefaultContext,
   Machine,
   State,
@@ -16,7 +17,10 @@ import {isWindowDefined} from '~components/utilities/DetectBrowser/DetectBrowser
 import './McGonagall.scss';
 
 // Saves the user data to McGonagalls state context.
-export const saveToStateContext = assign((ctx, eve) => ({
+export const saveToStateContext: AssignAction<
+  unknown,
+  McGonagallEvent
+> = assign((ctx, eve) => ({
   ...eve,
 }));
 
