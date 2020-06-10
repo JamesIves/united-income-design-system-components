@@ -56,7 +56,7 @@ export type McGonagallCardProps = {
   context: DefaultContext;
 };
 
-type Step = {
+export type Step = {
   /** Name of the step, should be the same as the state name */
   name: string;
   /** Title of the card */
@@ -76,14 +76,16 @@ type Step = {
 
 type McGonagallEvent = {type: 'NEXT'};
 
-type StateConfigStates = Record<string, any> & {complete: {type: string}};
+export type StateConfigStates = Record<string, any> & {
+  complete: {type: string};
+};
 
 interface Push {
   ({pathname, query}: {pathname?: string; query: any}): void;
   (pathname: string): void;
 }
 
-type McGonagallProps<TContext = DefaultContext> = {
+export type McGonagallProps<TContext = DefaultContext> = {
   /** Additional class names to apply */
   className?: string;
   /** Name of the flow */
