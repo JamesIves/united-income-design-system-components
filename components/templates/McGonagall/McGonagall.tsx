@@ -161,8 +161,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Standard react constructor method
-   * @param {Object} props - component props
-   * @returns {undefined}
+   * @param props - component props
    */
   constructor(props: Readonly<McGonagallProps<TContext>>) {
     super(props);
@@ -267,9 +266,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Recursively transitions until it reaches the last card it can navigate to
-   * @param {array} cardHistory current card history
-   * @param {object} currXState current xstate object
-   * @returns {object} updated currXstate, activeCard, and cardHistory
+   * @param cardHistory current card history
+   * @param currXState current xstate object
+   * @returns updated currXstate, activeCard, and cardHistory
    */
   navigateToLatestCard(
     cardHistory: Step[],
@@ -326,9 +325,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Update state machine and transition
-   * @param {array<string>} outputs the expected outputs for the step
-   * @param {object} outputDefaults default values for outputs to fallback to
-   * @param {boolean} clearFuture whether it should clear values from future steps
+   * @param outputs the expected outputs for the step
+   * @param outputDefaults default values for outputs to fallback to
+   * @param clearFuture whether it should clear values from future steps
    */
   updateStateMachine(
     outputs: string[],
@@ -435,9 +434,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Finds the step that matches the given state machine state
-   * @param {array<object>} allSteps array of step objects
-   * @param {object} state state machine
-   * @returns {object} step
+   * @param allSteps array of step objects
+   * @param state state machine
+   * @returns step
    */
   getMatchingStep(
     allSteps: Step[],
@@ -454,10 +453,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Updates url query param to the provided step
-   * @param {string} stepName step name
-   * @param {boolean} [shouldScrollToTop = true] should scroll to top
-   * @param {boolean} [shouldRevertChanges] should revert state to values from state machine context
-   * @returns {undefined}
+   * @param stepName step name
+   * @param [shouldScrollToTop = true] should scroll to top
+   * @param [shouldRevertChanges] should revert state to values from state machine context
    */
   navigateToStep(
     stepName: Step['name'],
@@ -481,9 +479,8 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Set state by field name
-   * @param {string} fieldName name of field in state
-   * @param {string} newValue value to set
-   * @returns {void}
+   * @param fieldName name of field in state
+   * @param newValue value to set
    */
   setStateField(fieldName: string, newValue: string): void {
     this.setState({[fieldName]: newValue});
@@ -491,7 +488,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Use exitLocation to close.
-   * @param {object} e event
+   * @param e event
    */
   close(e: MouseEvent): void {
     e.preventDefault();
@@ -509,9 +506,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Determines if it is the final step
-   * @param {object} states states from the state config
-   * @param {string} stepName name of the current step
-   * @returns {bool} whether it is the final step
+   * @param states states from the state config
+   * @param stepName name of the current step
+   * @returns whether it is the final step
    */
   isFinalStep(states: StateConfigStates, stepName: string): boolean {
     return states[stepName].type && states[stepName].type === 'final';
@@ -519,8 +516,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Shows confirmation modal
-   * @param {func} onConfirm function to call on confirm
-   * @returns {undefined}
+   * @param onConfirm function to call on confirm
    */
   async confirmChangeCancellation(onConfirm: () => void): Promise<void> {
     try {
@@ -540,9 +536,9 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
   /**
    * Renders a step
-   * @param {object} step McG step
-   * @param {number} stepIndex step index
-   * @returns {JSX} step
+   * @param step McG step
+   * @param stepIndex step index
+   * @returns step
    */
   renderStep(step: Step, stepIndex: number): ReactNode {
     const outputs = step.outputs || [];
