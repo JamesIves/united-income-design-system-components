@@ -464,7 +464,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
     // Ignoring this if since window.location can't be set in unit test
     /* istanbul ignore if  */
     if (this.props.exitLocation.startsWith('http') && isWindowDefined()) {
-      window.location.pathname = this.props.exitLocation;
+      window.location.href = this.props.exitLocation;
     } else {
       this.props.browserHistory.push(this.props.exitLocation);
     }
