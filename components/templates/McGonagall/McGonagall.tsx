@@ -48,7 +48,10 @@ export type McGonagallCardProps = {
   /** The handler to fire when a change happens. */
   onChange: (fieldName: string, newValue: string) => void;
   /** The handler to fire when the Submit button is clicked. */
-  onSubmit: (e: FormEvent, outputDefaults: OutputDefaults) => void;
+  onSubmit: (
+    e: FormEvent,
+    outputDefaults?: OutputDefaults,
+  ) => void | Promise<void>;
   /** Shorter title to be used with the card summary. */
   shortTitle: ReactNode;
   /** Shorter title to be used with the card summary. */
@@ -299,8 +302,8 @@ class McGonagall<TContext = DefaultContext> extends Component<
    */
   updateStateMachine(
     outputs: string[],
-    outputDefaults: OutputDefaults,
-    clearFuture: boolean,
+    outputDefaults?: OutputDefaults,
+    clearFuture?: boolean,
   ): void {
     let prevHistory = this.state.cardHistory;
 
@@ -516,7 +519,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
     // On submit will send data to state machine and update
     const onSubmit = (
       e: FormEvent, // Have to include because cards have to support Hogwarts passing through event
-      outputDefaults: OutputDefaults,
+      outputDefaults?: OutputDefaults,
     ): void =>
       this.updateStateMachine(
         outputs,
