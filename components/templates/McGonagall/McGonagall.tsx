@@ -179,8 +179,14 @@ class McGonagall<TContext = DefaultContext> extends Component<
       this.stateMachine.initialState,
     );
 
+    if (!firstStep) {
+      throw new Error(
+        `${this.stateMachine.initialState} not found in ${props.steps}`,
+      );
+    }
+
     const {currXState, activeCard, cardHistory} = this.navigateToLatestCard(
-      [firstStep!],
+      [firstStep],
       this.stateMachine.initialState,
     );
 
@@ -253,7 +259,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
     state: State<TContext, McGonagallEvent, StateSchema<any>, any>,
   ): string {
     if (typeof state.value !== 'string') {
-      throw new Error('state value is not a string');
+      throw new Error(`state value ${state.value} must be a string`);
     } else {
       return state.value;
     }
@@ -288,7 +294,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
         latest.value !== currXState.value &&
         latest.value !== newCardHistory[0].name
       ) {
-        newCardHistory.unshift(this.getMatchingStep(this.props.steps, latest)!);
+        newCardHistory.unshift(this.getMatchingStep(this.props.steps, latest));
       }
 
       const next = this.stateMachine.transition(latest.value, {
@@ -437,7 +443,13 @@ class McGonagall<TContext = DefaultContext> extends Component<
     allSteps: Step[],
     state: State<TContext, McGonagallEvent, StateSchema, any>,
   ): Step {
-    return allSteps.find((step) => state.matches(step.name))!;
+    const matchingStep = allSteps.find((step) => state.matches(step.name));
+
+    if (!matchingStep) {
+      throw new Error(`no matching step found for ${state}`);
+    }
+
+    return matchingStep;
   }
 
   /**
@@ -566,14 +578,23 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
     // Reverts any component state changes and opens card
     const editCard = (): void => {
-      // Check for changes in active step
-      const currStepOutputs = this.props.steps.find(
+      const currentStep = this.props.steps.find(
         ({name}) => name === this.activeCard,
-      )!.outputs;
-      const currStepStatePayload = pick(this.state, currStepOutputs!);
+      );
+
+      if (!currentStep) {
+        throw new Error(
+          `current step not found for active card ${this.activeCard}`,
+        );
+      } else if (!currentStep.outputs) {
+        throw new Error(`required outputs not provided on ${currentStep}`);
+      }
+
+      // Check for changes in active step
+      const currStepStatePayload = pick(this.state, currentStep.outputs);
       const currStepContextPayload = pick(
         this.state.currXState.context,
-        currStepOutputs!,
+        currentStep.outputs,
       );
 
       // Dont display confirmation dialog if no changes in active step or is currently at the review step
