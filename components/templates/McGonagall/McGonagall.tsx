@@ -192,6 +192,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
       hasMounted: false, // Used to switch animation styles
     };
 
+    this.stateValue = this.stateValue.bind(this);
     this.close = this.close.bind(this);
     this.navigateToLatestCard = this.navigateToLatestCard.bind(this);
     this.navigateToStep = this.navigateToStep.bind(this);
@@ -233,8 +234,29 @@ class McGonagall<TContext = DefaultContext> extends Component<
    * Gets active card based on query string
    */
   get activeCard(): string {
-    return (queryString.parse(this.props.location.search).step ||
-      this.state.currXState.value) as string;
+    const queryStringCard = queryString.parse(this.props.location.search).step;
+
+    if (typeof queryStringCard !== 'string') {
+      throw new Error('multiple card values found in query string');
+    }
+
+    return queryStringCard || this.stateValue(this.state.currXState);
+  }
+
+  /**
+   * Get the value of an xstate State object and check that it is a string.
+   * xstate supports nested state objects. McG does not.
+   * @param state an xstate state object
+   * @returns value of the state
+   */
+  stateValue(
+    state: State<TContext, McGonagallEvent, StateSchema<any>, any>,
+  ): string {
+    if (typeof state.value !== 'string') {
+      throw new Error('state value is not a string');
+    } else {
+      return state.value;
+    }
   }
 
   /**
@@ -277,7 +299,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
       // Stop right before final step
       if (
-        !this.isFinalStep(this.props.stateConfig.states, next.value as string)
+        !this.isFinalStep(this.props.stateConfig.states, this.stateValue(next))
       ) {
         latest = next;
       } else {
@@ -285,11 +307,13 @@ class McGonagall<TContext = DefaultContext> extends Component<
       }
     } while (latest.value !== newCardHistory[0].name && !finalReached);
 
-    this.navigateToStep(latest.value as string);
+    const activeCard = this.stateValue(latest);
+
+    this.navigateToStep(activeCard);
 
     return {
       currXState: latest,
-      activeCard: latest.value as string,
+      activeCard,
       cardHistory: newCardHistory,
     };
   }
@@ -357,7 +381,6 @@ class McGonagall<TContext = DefaultContext> extends Component<
             ...payload,
             ...updatedPayloadValues,
           },
-          // eslint-disable-next-line no-warning-comments
           undefined as any, // this param is not optional and was not provided in the js version
         );
     });
@@ -375,12 +398,14 @@ class McGonagall<TContext = DefaultContext> extends Component<
       updatedCurrState = newState;
     }
 
-    const stepToNavigateTo =
-      this.activeCard !== this.state.currXState.value && !clearFuture
-        ? this.state.currXState.value
-        : newState.value;
+    const currXStateValue = this.stateValue(this.state.currXState);
 
-    this.navigateToStep(stepToNavigateTo as string);
+    const stepToNavigateTo =
+      this.activeCard !== currXStateValue && !clearFuture
+        ? currXStateValue
+        : this.stateValue(newState);
+
+    this.navigateToStep(stepToNavigateTo);
 
     const updatedData = {
       currXState: updatedCurrState,
@@ -529,15 +554,12 @@ class McGonagall<TContext = DefaultContext> extends Component<
 
     // Reverts any component state changes and goes to latest card
     const cancelChanges = (): void => {
+      const currXStateValue = this.stateValue(this.state.currXState);
       // Dont display confirmation dialog if no changes
       !hasMadeChanges
-        ? this.navigateToStep(this.state.currXState.value as string, true, true)
+        ? this.navigateToStep(currXStateValue, true, true)
         : this.confirmChangeCancellation(() => {
-            this.navigateToStep(
-              this.state.currXState.value as string,
-              true,
-              true,
-            );
+            this.navigateToStep(currXStateValue, true, true);
             this.forceUpdate(); // Won't rerender otherwise
           });
     };
