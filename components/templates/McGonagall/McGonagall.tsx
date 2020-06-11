@@ -101,9 +101,9 @@ export type McGonagallProps<TContext = DefaultContext> = {
   /** Location info from router */
   location: {
     /** Pathname */
-    pathname?: string;
+    pathname: string;
     /** Query string */
-    search?: string;
+    search: string;
   };
   /** State machine config object that tells the state machine the different states and context. View https://xstate.js.org/docs/guides/machines.html#configuration for more details */
   stateConfig: {
@@ -230,8 +230,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
    * Gets active card based on query string
    */
   get activeCard(): string {
-    return ((this.props.location.search &&
-      queryString.parse(this.props.location.search).step) ||
+    return (queryString.parse(this.props.location.search).step ||
       this.state.currXState.value) as string;
   }
 
@@ -431,7 +430,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
     this.props.browserHistory.push({
       pathname: this.props.location.pathname,
       query: {
-        ...queryString.parse(this.props.location.search || ''),
+        ...queryString.parse(this.props.location.search),
         step: stepName,
       },
     });
