@@ -44,7 +44,7 @@ type MessageCardProps = {
   onSubmit: (
     e: FormEvent,
     outputDefaults?: Record<string, string | boolean>,
-  ) => Promise<void>;
+  ) => Promise<void> | void;
   /** The index of this card in the flow, used for animation purposes */
   stepIndex?: number;
   /** The title of the card. */
