@@ -178,12 +178,6 @@ class McGonagall<TContext = DefaultContext> extends Component<
       this.stateMachine.initialState,
     );
 
-    if (!firstStep) {
-      throw new Error(
-        `${this.stateMachine.initialState} not found in ${props.steps}`,
-      );
-    }
-
     const {currXState, activeCard, cardHistory} = this.navigateToLatestCard(
       [firstStep],
       this.stateMachine.initialState,
