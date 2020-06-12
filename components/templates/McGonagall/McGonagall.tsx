@@ -24,6 +24,13 @@ export const saveToStateContext: AssignAction<
   ...eve,
 }));
 
+export type HandleChange = (fieldName: string, newValue: any) => void;
+
+export type HandleSubmit = (
+  e: FormEvent,
+  outputDefaults?: OutputDefaults,
+) => void | Promise<void>;
+
 export type McGonagallCardProps = {
   /** Whether it should animate on mount */
   animate: boolean;
@@ -46,12 +53,9 @@ export type McGonagallCardProps = {
   /** Whether this is the furthest step. if this and isCollapsed is true, this will collapse to the incomplete summary/ */
   isLatestCard: boolean;
   /** The handler to fire when a change happens. */
-  onChange: (fieldName: string, newValue: string) => void;
+  onChange: HandleChange;
   /** The handler to fire when the Submit button is clicked. */
-  onSubmit: (
-    e: FormEvent,
-    outputDefaults?: OutputDefaults,
-  ) => void | Promise<void>;
+  onSubmit: HandleSubmit;
   /** Shorter title to be used with the card summary. */
   shortTitle: ReactNode;
   /** Shorter title to be used with the card summary. */
@@ -476,7 +480,7 @@ class McGonagall<TContext = DefaultContext> extends Component<
    * @param fieldName name of field in state
    * @param newValue value to set
    */
-  setStateField(fieldName: string, newValue: string): void {
+  setStateField(fieldName: string, newValue: any): void {
     this.setState({[fieldName]: newValue});
   }
 
