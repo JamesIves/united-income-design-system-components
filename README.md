@@ -1,9 +1,11 @@
+
 <p align="center">
   <img src="https://i.imgur.com/rPP3kdY.png" alt="United Income logo" width="650" />
 </p>
 <div align="center">
 
-[![Storybook](https://cdn.jsdelivr.net/gh/storybooks/brand@master/badge/badge-storybook.svg)](https://unitedincome.github.io/components) [![Invision](https://img.shields.io/badge/Invision-DSM-%23fd3366)](https://projects.invisionapp.com/dsm/united-income-design-system/united-income-brand) [![CircleCI](https://circleci.com/gh/UnitedIncome/components.svg?style=svg&circle-token=d8c505b4412cf8d13df383f7b5411ea9dc5d3e6a)](https://circleci.com/gh/UnitedIncome/components) [![codecov](https://codecov.io/gh/UnitedIncome/components/branch/master/graph/badge.svg?token=O1vKU2SVdc)](https://codecov.io/gh/UnitedIncome/components) [![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/United-Income/Component-Library)
+> **Warning**
+> This repository is a public archive of the United Income component library. United Income was a financial technology startup aquired by Capital One in 2020.
 
 </div>
 
