@@ -30,7 +30,6 @@ jobs:
         # Docs: https://github.com/JamesIves/github-pages-deploy-action
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          SSH: true
           branch: gh-pages
           folder: '.build'
           # Pushes the development version into the develop folder on the branch.
