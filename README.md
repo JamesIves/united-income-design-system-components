@@ -5,7 +5,7 @@
 <div align="center">
 
 > **Warning**
-> This repository is a public archive of the United Income component library. United Income was a financial technology startup aquired by Capital One in 2020. This is no longer maintained, and simply exists for historic purposes
+> This repository is a public archive of the United Income component library. United Income was a financial technology startup aquired by Capital One in 2020. This is no longer maintained, and simply exists for historic purposes.
 
 </div>
 
