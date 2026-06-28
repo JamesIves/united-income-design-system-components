@@ -3,11 +3,16 @@
   <img src="https://i.imgur.com/rPP3kdY.png" alt="United Income logo" width="650" />
 </p>
 
+<br />
+
 > [!IMPORTANT]
 > This repository is a public archive of the United Income component library. United Income was a financial technology startup aquired by Capital One in 2020. This is no longer maintained, and simply exists for historic purposes. Capital One has since shut down the United Income business.
 
+<br />
 
 This library aims to standardize the implementation and appearance of [React](https://reactjs.org/) components throughout [United Income's](https://unitedincome.com) properties. It includes a series of exportable components derived from the [United Income Design System](https://projects.invisionapp.com/dsm/united-income-design-system/united-income-brand) that can be used across teams to build a uniform experience.
+
+<br />
 
 ## Getting Started 🚀
 
